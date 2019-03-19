@@ -25800,14 +25800,14 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 // Data for carousel
 var carouselSlidesData = [{
+  content: 'Devdutta',
+  source: '../assets/DD.jpg'
+}, {
   content: 'Prerna',
   source: '../assets/Prerna.jpg'
 }, {
   content: 'Bhargavi',
   source: '../assets/Bhargavi.jpg'
-}, {
-  content: 'Devdutta',
-  source: '../assets/DD.jpg'
 }, {
   content: 'Parth',
   source: '../assets/Parth.jpg'
@@ -42930,7 +42930,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57148" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59826" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

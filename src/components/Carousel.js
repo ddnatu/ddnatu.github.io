@@ -3,16 +3,16 @@ import React from 'react'
 // Data for carousel
 const carouselSlidesData = [
     {
+        content: 'Devdutta',
+        source: '../assets/DD.jpg',
+    },
+    {
         content: 'Prerna',
         source: '../assets/Prerna.jpg',
     },
     {
         content: 'Bhargavi',
         source: '../assets/Bhargavi.jpg',
-    },
-    {
-        content: 'Devdutta',
-        source: '../assets/DD.jpg',
     },
     {
         content: 'Parth',
