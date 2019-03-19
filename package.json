@@ -8,7 +8,7 @@
         "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\" ",
         "lint": "eslint \"src/**/*.{js,jsx}\"",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "parcel src/index.html",
+        "start": "HTTPS=true parcel src/index.html",
         "build": "parcel build src/index.html --out-dir production"
     },
     "keywords": [],

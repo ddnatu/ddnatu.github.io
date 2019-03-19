@@ -25691,7 +25691,360 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/@babel/runtime/helpers/interopRequireDefault.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/bootstrap/dist/css/bootstrap.min.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"styles/style.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Carousel.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+// Data for carousel
+var carouselSlidesData = [{
+  content: 'Prerna',
+  source: '../assets/Prerna.jpg'
+}, {
+  content: 'Bhargavi',
+  source: '../assets/Bhargavi.jpg'
+}, {
+  content: 'Devdutta',
+  source: '../assets/DD.jpg'
+}, {
+  content: 'Parth',
+  source: '../assets/Parth.jpg'
+}, {
+  content: 'Phalgun',
+  source: '../assets/Phalgun.jpg'
+}]; //const carouselContainer = document.querySelector('.carousel-container')
+
+var CarouselLeftArrow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CarouselLeftArrow, _React$Component);
+
+  function CarouselLeftArrow() {
+    _classCallCheck(this, CarouselLeftArrow);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CarouselLeftArrow).apply(this, arguments));
+  }
+
+  _createClass(CarouselLeftArrow, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("button", {
+        href: "#",
+        className: "carousel__arrow carousel__arrow--left",
+        onClick: this.props.onClick
+      }, _react.default.createElement("span", {
+        className: "fa fa-2x fa-angle-left"
+      }));
+    }
+  }]);
+
+  return CarouselLeftArrow;
+}(_react.default.Component);
+
+var CarouselRightArrow =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inherits(CarouselRightArrow, _React$Component2);
+
+  function CarouselRightArrow() {
+    _classCallCheck(this, CarouselRightArrow);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CarouselRightArrow).apply(this, arguments));
+  }
+
+  _createClass(CarouselRightArrow, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("button", {
+        href: "#",
+        className: "carousel__arrow carousel__arrow--right",
+        onClick: this.props.onClick
+      }, _react.default.createElement("span", {
+        className: "fa fa-2x fa-angle-right"
+      }));
+    }
+  }]);
+
+  return CarouselRightArrow;
+}(_react.default.Component);
+
+var CarouselIndicator =
+/*#__PURE__*/
+function (_React$Component3) {
+  _inherits(CarouselIndicator, _React$Component3);
+
+  function CarouselIndicator() {
+    _classCallCheck(this, CarouselIndicator);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CarouselIndicator).apply(this, arguments));
+  }
+
+  _createClass(CarouselIndicator, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("li", null, _react.default.createElement("button", {
+        className: this.props.index == this.props.activeIndex ? 'carousel__indicator carousel__indicator--active' : 'carousel__indicator',
+        onClick: this.props.onClick
+      }));
+    }
+  }]);
+
+  return CarouselIndicator;
+}(_react.default.Component);
+
+var CarouselSlide =
+/*#__PURE__*/
+function (_React$Component4) {
+  _inherits(CarouselSlide, _React$Component4);
+
+  function CarouselSlide() {
+    _classCallCheck(this, CarouselSlide);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CarouselSlide).apply(this, arguments));
+  }
+
+  _createClass(CarouselSlide, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("li", {
+        className: this.props.index == this.props.activeIndex ? 'carousel__slide carousel__slide--active' : 'carousel__slide'
+      }, _react.default.createElement("img", {
+        src: this.props.slide.source,
+        alt: this.props.slide.content,
+        height: "300",
+        width: "400"
+      }), _react.default.createElement("p", null, _react.default.createElement("strong", {
+        className: "carousel-slide__author"
+      }, this.props.slide.content)));
+    }
+  }]);
+
+  return CarouselSlide;
+}(_react.default.Component); // Carousel wrapper component
+
+
+var Carousel =
+/*#__PURE__*/
+function (_React$Component5) {
+  _inherits(Carousel, _React$Component5);
+
+  function Carousel(props) {
+    var _this;
+
+    _classCallCheck(this, Carousel);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Carousel).call(this, props));
+    _this.goToSlide = _this.goToSlide.bind(_assertThisInitialized(_this));
+    _this.goToPrevSlide = _this.goToPrevSlide.bind(_assertThisInitialized(_this));
+    _this.goToNextSlide = _this.goToNextSlide.bind(_assertThisInitialized(_this));
+    _this.state = {
+      activeIndex: 0
+    };
+    return _this;
+  }
+
+  _createClass(Carousel, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.interval = setInterval(function () {
+        return _this2.goToNextSlide(event);
+      }, 10000);
+    }
+  }, {
+    key: "goToSlide",
+    value: function goToSlide(index) {
+      this.setState({
+        activeIndex: index
+      });
+    }
+  }, {
+    key: "goToPrevSlide",
+    value: function goToPrevSlide(e) {
+      e.preventDefault();
+      var index = this.state.activeIndex;
+      var slides = carouselSlidesData;
+      var slidesLength = slides.length;
+
+      if (index < 1) {
+        index = slidesLength;
+      }
+
+      --index;
+      this.setState({
+        activeIndex: index
+      });
+    }
+  }, {
+    key: "goToNextSlide",
+    value: function goToNextSlide() {
+      //e.preventDefault()
+      var index = this.state.activeIndex;
+      var slides = carouselSlidesData;
+      var slidesLength = slides.length - 1;
+
+      if (index === slidesLength) {
+        index = -1;
+      }
+
+      ++index;
+      this.setState({
+        activeIndex: index
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      return _react.default.createElement("div", {
+        className: "carousel",
+        style: {
+          textAlign: 'center',
+          marginTop: 50
+        }
+      }, _react.default.createElement(CarouselLeftArrow, {
+        onClick: function onClick(e) {
+          return _this3.goToPrevSlide(e);
+        }
+      }), _react.default.createElement("ul", {
+        className: "carousel__slides"
+      }, carouselSlidesData.map(function (slide, index) {
+        return _react.default.createElement(CarouselSlide, {
+          key: index,
+          index: index,
+          activeIndex: _this3.state.activeIndex,
+          slide: slide
+        });
+      })), _react.default.createElement(CarouselRightArrow, {
+        onClick: function onClick(e) {
+          return _this3.goToNextSlide(e);
+        }
+      }), _react.default.createElement("ul", {
+        className: "carousel__indicators"
+      }, carouselSlidesData.map(function (slide, index) {
+        return _react.default.createElement(CarouselIndicator, {
+          key: index,
+          index: index,
+          activeIndex: _this3.state.activeIndex,
+          isActive: _this3.state.activeIndex == index,
+          onClick: function onClick(e) {
+            return _this3.goToSlide(index, e);
+          }
+        });
+      })));
+    }
+  }]);
+
+  return Carousel;
+}(_react.default.Component);
+
+var _default = Carousel;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"../node_modules/@babel/runtime/helpers/interopRequireDefault.js":[function(require,module,exports) {
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
@@ -25914,252 +26267,7 @@ function createBootstrapComponent(Component, opts) {
 
 var _default = ThemeProvider;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","react-context-toolbox/forwardRef":"../node_modules/react-context-toolbox/forwardRef.js","react":"../node_modules/react/index.js"}],"../node_modules/@babel/runtime/helpers/assertThisInitialized.js":[function(require,module,exports) {
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-module.exports = _assertThisInitialized;
-},{}],"../node_modules/react-bootstrap/utils/createChainedFunction.js":[function(require,module,exports) {
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-/**
- * Safe chained function
- *
- * Will only create a new function if needed,
- * otherwise will pass back existing functions or null.
- *
- * @param {function} functions to chain
- * @returns {function|null}
- */
-function createChainedFunction() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.filter(function (f) {
-    return f != null;
-  }).reduce(function (acc, f) {
-    if (typeof f !== 'function') {
-      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
-    }
-
-    if (acc === null) return f;
-    return function chainedFunction() {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      acc.apply(this, args);
-      f.apply(this, args);
-    };
-  }, null);
-}
-
-var _default = createChainedFunction;
-exports.default = _default;
-module.exports = exports["default"];
-},{}],"../node_modules/react-bootstrap/SafeAnchor.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _createChainedFunction = _interopRequireDefault(require("./utils/createChainedFunction"));
-
-var defaultProps = {
-  as: 'a'
-};
-
-function isTrivialHref(href) {
-  return !href || href.trim() === '#';
-}
-/**
- * There are situations due to browser quirks or Bootstrap CSS where
- * an anchor tag is needed, when semantically a button tag is the
- * better choice. SafeAnchor ensures that when an anchor is used like a
- * button its accessible. It also emulates input `disabled` behavior for
- * links, which is usually desirable for Buttons, NavItems, DropdownItems, etc.
- */
-
-
-var SafeAnchor =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(SafeAnchor, _React$Component);
-
-  function SafeAnchor(props, context) {
-    var _this;
-
-    _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)));
-    _this.handleKeyDown = _this.handleKeyDown.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)));
-    return _this;
-  }
-
-  var _proto = SafeAnchor.prototype;
-
-  _proto.handleClick = function handleClick(event) {
-    var _this$props = this.props,
-        disabled = _this$props.disabled,
-        href = _this$props.href,
-        onClick = _this$props.onClick;
-
-    if (disabled || isTrivialHref(href)) {
-      event.preventDefault();
-    }
-
-    if (disabled) {
-      event.stopPropagation();
-      return;
-    }
-
-    if (onClick) {
-      onClick(event);
-    }
-  };
-
-  _proto.handleKeyDown = function handleKeyDown(event) {
-    if (event.key === ' ') {
-      event.preventDefault();
-      this.handleClick(event);
-    }
-  };
-
-  _proto.render = function render() {
-    var _this$props2 = this.props,
-        Component = _this$props2.as,
-        disabled = _this$props2.disabled,
-        onKeyDown = _this$props2.onKeyDown,
-        innerRef = _this$props2.innerRef,
-        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props2, ["as", "disabled", "onKeyDown", "innerRef"]);
-
-    if (isTrivialHref(props.href)) {
-      props.role = props.role || 'button'; // we want to make sure there is a href attribute on the node
-      // otherwise, the cursor incorrectly styled (except with role='button')
-
-      props.href = props.href || '#';
-    }
-
-    if (disabled) {
-      props.tabIndex = -1;
-      props['aria-disabled'] = true;
-    }
-
-    if (innerRef) props.ref = innerRef;
-    return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
-      onClick: this.handleClick,
-      onKeyDown: (0, _createChainedFunction.default)(this.handleKeyDown, onKeyDown)
-    }));
-  };
-
-  return SafeAnchor;
-}(_react.default.Component);
-
-SafeAnchor.defaultProps = defaultProps;
-var _default = SafeAnchor;
-exports.default = _default;
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","@babel/runtime/helpers/assertThisInitialized":"../node_modules/@babel/runtime/helpers/assertThisInitialized.js","react":"../node_modules/react/index.js","./utils/createChainedFunction":"../node_modules/react-bootstrap/utils/createChainedFunction.js"}],"../node_modules/react-bootstrap/Button.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _ThemeProvider = require("./ThemeProvider");
-
-var _SafeAnchor = _interopRequireDefault(require("./SafeAnchor"));
-
-var Button =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(Button, _React$Component);
-
-  function Button() {
-    return _React$Component.apply(this, arguments) || this;
-  }
-
-  var _proto = Button.prototype;
-
-  _proto.render = function render() {
-    var _this$props = this.props,
-        bsPrefix = _this$props.bsPrefix,
-        variant = _this$props.variant,
-        size = _this$props.size,
-        active = _this$props.active,
-        className = _this$props.className,
-        block = _this$props.block,
-        type = _this$props.type,
-        as = _this$props.as,
-        innerRef = _this$props.innerRef,
-        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["bsPrefix", "variant", "size", "active", "className", "block", "type", "as", "innerRef"]);
-    var classes = (0, _classnames.default)(className, bsPrefix, active && 'active', bsPrefix + "-" + variant, block && bsPrefix + "-block", size && bsPrefix + "-" + size);
-
-    if (props.href) {
-      return _react.default.createElement(_SafeAnchor.default, (0, _extends2.default)({}, props, {
-        as: as,
-        innerRef: innerRef,
-        className: (0, _classnames.default)(classes, props.disabled && 'disabled')
-      }));
-    }
-
-    var Component = as || 'button';
-    if (innerRef) props.ref = innerRef;
-    return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
-      type: type,
-      className: classes
-    }));
-  };
-
-  return Button;
-}(_react.default.Component);
-
-Button.defaultProps = {
-  variant: 'primary',
-  active: false,
-  disabled: false,
-  type: 'button'
-};
-
-var _default = (0, _ThemeProvider.createBootstrapComponent)(Button, {
-  prefix: 'btn',
-  forwardRefAs: 'innerRef'
-});
-
-exports.default = _default;
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/ThemeProvider.js","./SafeAnchor":"../node_modules/react-bootstrap/SafeAnchor.js"}],"../node_modules/react-bootstrap/Container.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","react-context-toolbox/forwardRef":"../node_modules/react-context-toolbox/forwardRef.js","react":"../node_modules/react/index.js"}],"../node_modules/react-bootstrap/Container.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -26214,7 +26322,67 @@ var _default = (0, _ThemeProvider.createBootstrapComponent)(Container, 'containe
 
 exports.default = _default;
 module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/ThemeProvider.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/ThemeProvider.js"}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _extends;
+
+function _extends() {
+  exports.default = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+},{}],"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _objectWithoutPropertiesLoose;
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+},{}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _inheritsLoose;
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+},{}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -26561,19 +26729,21 @@ function uncontrollable(Component, controlledValues, methods) {
 }
 
 module.exports = exports["default"];
-},{"react":"../node_modules/react/index.js","invariant":"../node_modules/invariant/browser.js","./utils":"../node_modules/uncontrollable/utils.js"}],"../node_modules/react-bootstrap/utils/divWithClassName.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","invariant":"../node_modules/invariant/browser.js","./utils":"../node_modules/uncontrollable/utils.js"}],"../node_modules/react-bootstrap/es/utils/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
 
 var _react = _interopRequireDefault(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = function _default(className) {
   return _react.default.forwardRef(function (p, ref) {
@@ -26585,8 +26755,7 @@ var _default = function _default(className) {
 };
 
 exports.default = _default;
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js"}],"../node_modules/dom-helpers/util/camelize.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js"}],"../node_modules/dom-helpers/util/camelize.js":[function(require,module,exports) {
 "use strict";
 
 exports.__esModule = true;
@@ -26600,19 +26769,100 @@ function camelize(string) {
 }
 
 module.exports = exports["default"];
-},{}],"../node_modules/react-bootstrap/utils/createWithBsPrefix.js":[function(require,module,exports) {
+},{}],"../node_modules/react-bootstrap/es/ThemeProvider.js":[function(require,module,exports) {
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createBootstrapComponent = createBootstrapComponent;
+exports.default = exports.ThemeConsumer = void 0;
 
-exports.__esModule = true;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var _forwardRef = _interopRequireDefault(require("react-context-toolbox/forwardRef"));
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _React$createContext = _react.default.createContext(new Map()),
+    Provider = _React$createContext.Provider,
+    Consumer = _React$createContext.Consumer;
+
+exports.ThemeConsumer = Consumer;
+
+var ThemeProvider =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(ThemeProvider, _React$Component);
+
+  function ThemeProvider() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.prefixes = new Map();
+    Object.keys(_this.props.prefixes).forEach(function (key) {
+      _this.prefixes.set(key, _this.props.prefixes[key]);
+    });
+    return _this;
+  }
+
+  var _proto = ThemeProvider.prototype;
+
+  _proto.render = function render() {
+    return _react.default.createElement(Provider, {
+      value: this.prefixes
+    }, this.props.children);
+  };
+
+  return ThemeProvider;
+}(_react.default.Component);
+
+function createBootstrapComponent(Component, opts) {
+  if (typeof opts === 'string') opts = {
+    prefix: opts
+  };
+  var isClassy = Component.prototype && Component.prototype.isReactComponent; // If it's a functional component make sure we don't break it with a ref
+
+  var _opts = opts,
+      prefix = _opts.prefix,
+      _opts$forwardRefAs = _opts.forwardRefAs,
+      forwardRefAs = _opts$forwardRefAs === void 0 ? isClassy ? 'ref' : 'innerRef' : _opts$forwardRefAs;
+  return (0, _forwardRef.default)(function (_ref, ref) {
+    var props = (0, _extends2.default)({}, _ref);
+    props[forwardRefAs] = ref;
+    return _react.default.createElement(Consumer, null, function (prefixes) {
+      return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
+        bsPrefix: props.bsPrefix || prefixes.get(prefix) || prefix
+      }));
+    });
+  }, {
+    displayName: "Bootstrap(" + (Component.displayName || Component.name) + ")"
+  });
+}
+
+var _default = ThemeProvider;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react-context-toolbox/forwardRef":"../node_modules/react-context-toolbox/forwardRef.js","react":"../node_modules/react/index.js"}],"../node_modules/react-bootstrap/es/utils/createWithBsPrefix.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = createWithBsPrefix;
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
 
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
@@ -26621,6 +26871,8 @@ var _react = _interopRequireDefault(require("react"));
 var _camelize = _interopRequireDefault(require("dom-helpers/util/camelize"));
 
 var _ThemeProvider = require("../ThemeProvider");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var pascalCase = function pascalCase(str) {
   return str[0].toUpperCase() + (0, _camelize.default)(str).slice(1);
@@ -26662,36 +26914,7 @@ function createWithBsPrefix(prefix, _temp) {
     return _class;
   }(_react.default.Component), _class.displayName = displayName, _temp2), prefix);
 }
-
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","dom-helpers/util/camelize":"../node_modules/dom-helpers/util/camelize.js","../ThemeProvider":"../node_modules/react-bootstrap/ThemeProvider.js"}],"../node_modules/@babel/runtime/helpers/interopRequireWildcard.js":[function(require,module,exports) {
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};
-
-    if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
-
-          if (desc.get || desc.set) {
-            Object.defineProperty(newObj, key, desc);
-          } else {
-            newObj[key] = obj[key];
-          }
-        }
-      }
-    }
-
-    newObj.default = obj;
-    return newObj;
-  }
-}
-
-module.exports = _interopRequireWildcard;
-},{}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","dom-helpers/util/camelize":"../node_modules/dom-helpers/util/camelize.js","../ThemeProvider":"../node_modules/react-bootstrap/es/ThemeProvider.js"}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
 /** @license React v16.8.4
  * react-is.development.js
  *
@@ -28746,494 +28969,7 @@ function parseDuration(node) {
 }
 
 module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./properties":"../node_modules/dom-helpers/transition/properties.js","../style":"../node_modules/dom-helpers/style/index.js"}],"../node_modules/react-bootstrap/utils/triggerBrowserReflow.js":[function(require,module,exports) {
-"use strict";
-
-exports.__esModule = true;
-exports.default = triggerBrowserReflow;
-
-// reading a dimension prop will cause the browser to recalculate,
-// which will let our animations work
-function triggerBrowserReflow(node) {
-  node.offsetHeight; // eslint-disable-line no-unused-expressions
-}
-
-module.exports = exports["default"];
-},{}],"../node_modules/react-bootstrap/Fade.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Transition = _interopRequireWildcard(require("react-transition-group/Transition"));
-
-var _end = _interopRequireDefault(require("dom-helpers/transition/end"));
-
-var _triggerBrowserReflow = _interopRequireDefault(require("./utils/triggerBrowserReflow"));
-
-var _fadeStyles;
-
-var defaultProps = {
-  in: false,
-  timeout: 300,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false
-};
-var fadeStyles = (_fadeStyles = {}, _fadeStyles[_Transition.ENTERING] = 'show', _fadeStyles[_Transition.ENTERED] = 'show', _fadeStyles);
-
-var Fade =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(Fade, _React$Component);
-
-  function Fade() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-
-    _this.handleEnter = function (node) {
-      (0, _triggerBrowserReflow.default)(node);
-      if (_this.props.onEnter) _this.props.onEnter(node);
-    };
-
-    return _this;
-  }
-
-  var _proto = Fade.prototype;
-
-  _proto.render = function render() {
-    var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["className", "children"]);
-    return _react.default.createElement(_Transition.default, (0, _extends2.default)({
-      addEndListener: _end.default
-    }, props, {
-      onEnter: this.handleEnter
-    }), function (status, innerProps) {
-      return _react.default.cloneElement(children, (0, _extends2.default)({}, innerProps, {
-        className: (0, _classnames.default)('fade', className, children.props.className, fadeStyles[status])
-      }));
-    });
-  };
-
-  return Fade;
-}(_react.default.Component);
-
-Fade.defaultProps = defaultProps;
-var _default = Fade;
-exports.default = _default;
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/interopRequireWildcard":"../node_modules/@babel/runtime/helpers/interopRequireWildcard.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","react-transition-group/Transition":"../node_modules/react-transition-group/Transition.js","dom-helpers/transition/end":"../node_modules/dom-helpers/transition/end.js","./utils/triggerBrowserReflow":"../node_modules/react-bootstrap/utils/triggerBrowserReflow.js"}],"../node_modules/react-bootstrap/CloseButton.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var defaultProps = {
-  label: 'Close'
-};
-
-var CloseButton =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(CloseButton, _React$Component);
-
-  function CloseButton() {
-    return _React$Component.apply(this, arguments) || this;
-  }
-
-  var _proto = CloseButton.prototype;
-
-  _proto.render = function render() {
-    var _this$props = this.props,
-        label = _this$props.label,
-        onClick = _this$props.onClick;
-    return _react.default.createElement("button", {
-      type: "button",
-      className: "close",
-      onClick: onClick
-    }, _react.default.createElement("span", {
-      "aria-hidden": "true"
-    }, "\xD7"), _react.default.createElement("span", {
-      className: "sr-only"
-    }, label));
-  };
-
-  return CloseButton;
-}(_react.default.Component);
-
-CloseButton.defaultProps = defaultProps;
-var _default = CloseButton;
-exports.default = _default;
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","react":"../node_modules/react/index.js"}],"../node_modules/react-bootstrap/Alert.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _uncontrollable = _interopRequireDefault(require("uncontrollable"));
-
-var _divWithClassName = _interopRequireDefault(require("./utils/divWithClassName"));
-
-var _createWithBsPrefix = _interopRequireDefault(require("./utils/createWithBsPrefix"));
-
-var _ThemeProvider = require("./ThemeProvider");
-
-var _Fade = _interopRequireDefault(require("./Fade"));
-
-var _CloseButton = _interopRequireDefault(require("./CloseButton"));
-
-var _SafeAnchor = _interopRequireDefault(require("./SafeAnchor"));
-
-/**
- * @property {AlertHeading} Heading
- * @property {AlertLink} Link
- */
-var Alert =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(Alert, _React$Component);
-
-  function Alert() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-
-    _this.handleClose = function (e) {
-      _this.props.onClose(false, e);
-    };
-
-    return _this;
-  }
-
-  var _proto = Alert.prototype;
-
-  _proto.render = function render() {
-    var _this$props = this.props,
-        bsPrefix = _this$props.bsPrefix,
-        show = _this$props.show,
-        closeLabel = _this$props.closeLabel,
-        className = _this$props.className,
-        children = _this$props.children,
-        variant = _this$props.variant,
-        dismissible = _this$props.dismissible,
-        Transition = _this$props.transition,
-        _ = _this$props.onClose,
-        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["bsPrefix", "show", "closeLabel", "className", "children", "variant", "dismissible", "transition", "onClose"]);
-
-    var alert = _react.default.createElement("div", (0, _extends2.default)({
-      role: "alert"
-    }, Transition ? props : undefined, {
-      className: (0, _classnames.default)(className, bsPrefix, variant && bsPrefix + "-" + variant, dismissible && bsPrefix + "-dismissible")
-    }), dismissible && _react.default.createElement(_CloseButton.default, {
-      onClick: this.handleClose,
-      label: closeLabel
-    }), children);
-
-    if (!Transition) return show ? alert : null;
-    return _react.default.createElement(Transition, (0, _extends2.default)({
-      unmountOnExit: true
-    }, props, {
-      in: show
-    }), alert);
-  };
-
-  return Alert;
-}(_react.default.Component);
-
-Alert.defaultProps = {
-  show: true,
-  transition: _Fade.default,
-  closeLabel: 'Close alert'
-};
-var DecoratedAlert = (0, _uncontrollable.default)((0, _ThemeProvider.createBootstrapComponent)(Alert, 'alert'), {
-  show: 'onClose'
-});
-var DivStyledAsH4 = (0, _divWithClassName.default)('h4');
-DecoratedAlert.Link = (0, _createWithBsPrefix.default)('alert-link', {
-  Component: _SafeAnchor.default
-});
-DecoratedAlert.Heading = (0, _createWithBsPrefix.default)('alert-heading', {
-  Component: DivStyledAsH4
-});
-var _default = DecoratedAlert;
-exports.default = _default;
-module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","uncontrollable":"../node_modules/uncontrollable/index.js","./utils/divWithClassName":"../node_modules/react-bootstrap/utils/divWithClassName.js","./utils/createWithBsPrefix":"../node_modules/react-bootstrap/utils/createWithBsPrefix.js","./ThemeProvider":"../node_modules/react-bootstrap/ThemeProvider.js","./Fade":"../node_modules/react-bootstrap/Fade.js","./CloseButton":"../node_modules/react-bootstrap/CloseButton.js","./SafeAnchor":"../node_modules/react-bootstrap/SafeAnchor.js"}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _extends;
-
-function _extends() {
-  exports.default = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-},{}],"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _objectWithoutPropertiesLoose;
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-},{}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _inheritsLoose;
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-},{}],"../node_modules/react-bootstrap/es/utils/divWithClassName.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = function _default(className) {
-  return _react.default.forwardRef(function (p, ref) {
-    return _react.default.createElement("div", (0, _extends2.default)({}, p, {
-      ref: ref,
-      className: (0, _classnames.default)(p.className, className)
-    }));
-  });
-};
-
-exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js"}],"../node_modules/react-bootstrap/es/ThemeProvider.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createBootstrapComponent = createBootstrapComponent;
-exports.default = exports.ThemeConsumer = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
-
-var _forwardRef = _interopRequireDefault(require("react-context-toolbox/forwardRef"));
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _React$createContext = _react.default.createContext(new Map()),
-    Provider = _React$createContext.Provider,
-    Consumer = _React$createContext.Consumer;
-
-exports.ThemeConsumer = Consumer;
-
-var ThemeProvider =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(ThemeProvider, _React$Component);
-
-  function ThemeProvider() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.prefixes = new Map();
-    Object.keys(_this.props.prefixes).forEach(function (key) {
-      _this.prefixes.set(key, _this.props.prefixes[key]);
-    });
-    return _this;
-  }
-
-  var _proto = ThemeProvider.prototype;
-
-  _proto.render = function render() {
-    return _react.default.createElement(Provider, {
-      value: this.prefixes
-    }, this.props.children);
-  };
-
-  return ThemeProvider;
-}(_react.default.Component);
-
-function createBootstrapComponent(Component, opts) {
-  if (typeof opts === 'string') opts = {
-    prefix: opts
-  };
-  var isClassy = Component.prototype && Component.prototype.isReactComponent; // If it's a functional component make sure we don't break it with a ref
-
-  var _opts = opts,
-      prefix = _opts.prefix,
-      _opts$forwardRefAs = _opts.forwardRefAs,
-      forwardRefAs = _opts$forwardRefAs === void 0 ? isClassy ? 'ref' : 'innerRef' : _opts$forwardRefAs;
-  return (0, _forwardRef.default)(function (_ref, ref) {
-    var props = (0, _extends2.default)({}, _ref);
-    props[forwardRefAs] = ref;
-    return _react.default.createElement(Consumer, null, function (prefixes) {
-      return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
-        bsPrefix: props.bsPrefix || prefixes.get(prefix) || prefix
-      }));
-    });
-  }, {
-    displayName: "Bootstrap(" + (Component.displayName || Component.name) + ")"
-  });
-}
-
-var _default = ThemeProvider;
-exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react-context-toolbox/forwardRef":"../node_modules/react-context-toolbox/forwardRef.js","react":"../node_modules/react/index.js"}],"../node_modules/react-bootstrap/es/utils/createWithBsPrefix.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = createWithBsPrefix;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
-
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _camelize = _interopRequireDefault(require("dom-helpers/util/camelize"));
-
-var _ThemeProvider = require("../ThemeProvider");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var pascalCase = function pascalCase(str) {
-  return str[0].toUpperCase() + (0, _camelize.default)(str).slice(1);
-};
-
-function createWithBsPrefix(prefix, _temp) {
-  var _class, _temp2;
-
-  var _ref = _temp === void 0 ? {} : _temp,
-      _ref$displayName = _ref.displayName,
-      displayName = _ref$displayName === void 0 ? pascalCase(prefix) : _ref$displayName,
-      _ref$Component = _ref.Component,
-      Component = _ref$Component === void 0 ? 'div' : _ref$Component,
-      defaultProps = _ref.defaultProps;
-
-  return (0, _ThemeProvider.createBootstrapComponent)((_temp2 = _class =
-  /*#__PURE__*/
-  function (_React$Component) {
-    (0, _inheritsLoose2.default)(_class, _React$Component);
-
-    function _class() {
-      return _React$Component.apply(this, arguments) || this;
-    }
-
-    var _proto = _class.prototype;
-
-    _proto.render = function render() {
-      var _this$props = this.props,
-          className = _this$props.className,
-          bsPrefix = _this$props.bsPrefix,
-          _this$props$as = _this$props.as,
-          Tag = _this$props$as === void 0 ? Component : _this$props$as,
-          props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["className", "bsPrefix", "as"]);
-      return _react.default.createElement(Tag, (0, _extends2.default)({}, defaultProps, props, {
-        className: (0, _classnames.default)(className, bsPrefix)
-      }));
-    };
-
-    return _class;
-  }(_react.default.Component), _class.displayName = displayName, _temp2), prefix);
-}
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","dom-helpers/util/camelize":"../node_modules/dom-helpers/util/camelize.js","../ThemeProvider":"../node_modules/react-bootstrap/es/ThemeProvider.js"}],"../node_modules/react-bootstrap/es/utils/triggerBrowserReflow.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./properties":"../node_modules/dom-helpers/transition/properties.js","../style":"../node_modules/dom-helpers/style/index.js"}],"../node_modules/react-bootstrap/es/utils/triggerBrowserReflow.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31246,7 +30982,17 @@ function ie8MatchesSelector(node, selector) {
 }
 
 module.exports = exports["default"];
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","../util/inDOM":"../node_modules/dom-helpers/util/inDOM.js","./querySelectorAll":"../node_modules/dom-helpers/query/querySelectorAll.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","../util/inDOM":"../node_modules/dom-helpers/util/inDOM.js","./querySelectorAll":"../node_modules/dom-helpers/query/querySelectorAll.js"}],"../node_modules/@babel/runtime/helpers/assertThisInitialized.js":[function(require,module,exports) {
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+},{}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -42911,101 +42657,179 @@ var _ToggleButtonGroup2 = _interopRequireDefault(require("./ToggleButtonGroup"))
 var _Tooltip2 = _interopRequireDefault(require("./Tooltip"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Alert":"../node_modules/react-bootstrap/es/Alert.js","./Badge":"../node_modules/react-bootstrap/es/Badge.js","./Breadcrumb":"../node_modules/react-bootstrap/es/Breadcrumb.js","./BreadcrumbItem":"../node_modules/react-bootstrap/es/BreadcrumbItem.js","./Button":"../node_modules/react-bootstrap/es/Button.js","./ButtonGroup":"../node_modules/react-bootstrap/es/ButtonGroup.js","./ButtonToolbar":"../node_modules/react-bootstrap/es/ButtonToolbar.js","./Card":"../node_modules/react-bootstrap/es/Card.js","./CardColumns":"../node_modules/react-bootstrap/es/CardColumns.js","./CardDeck":"../node_modules/react-bootstrap/es/CardDeck.js","./CardImg":"../node_modules/react-bootstrap/es/CardImg.js","./CardGroup":"../node_modules/react-bootstrap/es/CardGroup.js","./Carousel":"../node_modules/react-bootstrap/es/Carousel.js","./CarouselItem":"../node_modules/react-bootstrap/es/CarouselItem.js","./CloseButton":"../node_modules/react-bootstrap/es/CloseButton.js","./Col":"../node_modules/react-bootstrap/es/Col.js","./Collapse":"../node_modules/react-bootstrap/es/Collapse.js","./Dropdown":"../node_modules/react-bootstrap/es/Dropdown.js","./DropdownButton":"../node_modules/react-bootstrap/es/DropdownButton.js","./Fade":"../node_modules/react-bootstrap/es/Fade.js","./Form":"../node_modules/react-bootstrap/es/Form.js","./FormControl":"../node_modules/react-bootstrap/es/FormControl.js","./FormCheck":"../node_modules/react-bootstrap/es/FormCheck.js","./FormGroup":"../node_modules/react-bootstrap/es/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/es/FormLabel.js","./FormText":"../node_modules/react-bootstrap/es/FormText.js","./Container":"../node_modules/react-bootstrap/es/Container.js","./Image":"../node_modules/react-bootstrap/es/Image.js","./Figure":"../node_modules/react-bootstrap/es/Figure.js","./InputGroup":"../node_modules/react-bootstrap/es/InputGroup.js","./Jumbotron":"../node_modules/react-bootstrap/es/Jumbotron.js","./ListGroup":"../node_modules/react-bootstrap/es/ListGroup.js","./ListGroupItem":"../node_modules/react-bootstrap/es/ListGroupItem.js","./Media":"../node_modules/react-bootstrap/es/Media.js","./Modal":"../node_modules/react-bootstrap/es/Modal.js","./ModalBody":"../node_modules/react-bootstrap/es/ModalBody.js","./ModalDialog":"../node_modules/react-bootstrap/es/ModalDialog.js","./ModalFooter":"../node_modules/react-bootstrap/es/ModalFooter.js","./ModalTitle":"../node_modules/react-bootstrap/es/ModalTitle.js","./Nav":"../node_modules/react-bootstrap/es/Nav.js","./Navbar":"../node_modules/react-bootstrap/es/Navbar.js","./NavbarBrand":"../node_modules/react-bootstrap/es/NavbarBrand.js","./NavDropdown":"../node_modules/react-bootstrap/es/NavDropdown.js","./NavItem":"../node_modules/react-bootstrap/es/NavItem.js","./Overlay":"../node_modules/react-bootstrap/es/Overlay.js","./OverlayTrigger":"../node_modules/react-bootstrap/es/OverlayTrigger.js","./PageItem":"../node_modules/react-bootstrap/es/PageItem.js","./Pagination":"../node_modules/react-bootstrap/es/Pagination.js","./Popover":"../node_modules/react-bootstrap/es/Popover.js","./ProgressBar":"../node_modules/react-bootstrap/es/ProgressBar.js","./ResponsiveEmbed":"../node_modules/react-bootstrap/es/ResponsiveEmbed.js","./Row":"../node_modules/react-bootstrap/es/Row.js","./SafeAnchor":"../node_modules/react-bootstrap/es/SafeAnchor.js","./SplitButton":"../node_modules/react-bootstrap/es/SplitButton.js","./Tab":"../node_modules/react-bootstrap/es/Tab.js","./TabContainer":"../node_modules/react-bootstrap/es/TabContainer.js","./TabContent":"../node_modules/react-bootstrap/es/TabContent.js","./Table":"../node_modules/react-bootstrap/es/Table.js","./TabPane":"../node_modules/react-bootstrap/es/TabPane.js","./Tabs":"../node_modules/react-bootstrap/es/Tabs.js","./ThemeProvider":"../node_modules/react-bootstrap/es/ThemeProvider.js","./ToggleButton":"../node_modules/react-bootstrap/es/ToggleButton.js","./ToggleButtonGroup":"../node_modules/react-bootstrap/es/ToggleButtonGroup.js","./Tooltip":"../node_modules/react-bootstrap/es/Tooltip.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+},{"./Alert":"../node_modules/react-bootstrap/es/Alert.js","./Badge":"../node_modules/react-bootstrap/es/Badge.js","./Breadcrumb":"../node_modules/react-bootstrap/es/Breadcrumb.js","./BreadcrumbItem":"../node_modules/react-bootstrap/es/BreadcrumbItem.js","./Button":"../node_modules/react-bootstrap/es/Button.js","./ButtonGroup":"../node_modules/react-bootstrap/es/ButtonGroup.js","./ButtonToolbar":"../node_modules/react-bootstrap/es/ButtonToolbar.js","./Card":"../node_modules/react-bootstrap/es/Card.js","./CardColumns":"../node_modules/react-bootstrap/es/CardColumns.js","./CardDeck":"../node_modules/react-bootstrap/es/CardDeck.js","./CardImg":"../node_modules/react-bootstrap/es/CardImg.js","./CardGroup":"../node_modules/react-bootstrap/es/CardGroup.js","./Carousel":"../node_modules/react-bootstrap/es/Carousel.js","./CarouselItem":"../node_modules/react-bootstrap/es/CarouselItem.js","./CloseButton":"../node_modules/react-bootstrap/es/CloseButton.js","./Col":"../node_modules/react-bootstrap/es/Col.js","./Collapse":"../node_modules/react-bootstrap/es/Collapse.js","./Dropdown":"../node_modules/react-bootstrap/es/Dropdown.js","./DropdownButton":"../node_modules/react-bootstrap/es/DropdownButton.js","./Fade":"../node_modules/react-bootstrap/es/Fade.js","./Form":"../node_modules/react-bootstrap/es/Form.js","./FormControl":"../node_modules/react-bootstrap/es/FormControl.js","./FormCheck":"../node_modules/react-bootstrap/es/FormCheck.js","./FormGroup":"../node_modules/react-bootstrap/es/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/es/FormLabel.js","./FormText":"../node_modules/react-bootstrap/es/FormText.js","./Container":"../node_modules/react-bootstrap/es/Container.js","./Image":"../node_modules/react-bootstrap/es/Image.js","./Figure":"../node_modules/react-bootstrap/es/Figure.js","./InputGroup":"../node_modules/react-bootstrap/es/InputGroup.js","./Jumbotron":"../node_modules/react-bootstrap/es/Jumbotron.js","./ListGroup":"../node_modules/react-bootstrap/es/ListGroup.js","./ListGroupItem":"../node_modules/react-bootstrap/es/ListGroupItem.js","./Media":"../node_modules/react-bootstrap/es/Media.js","./Modal":"../node_modules/react-bootstrap/es/Modal.js","./ModalBody":"../node_modules/react-bootstrap/es/ModalBody.js","./ModalDialog":"../node_modules/react-bootstrap/es/ModalDialog.js","./ModalFooter":"../node_modules/react-bootstrap/es/ModalFooter.js","./ModalTitle":"../node_modules/react-bootstrap/es/ModalTitle.js","./Nav":"../node_modules/react-bootstrap/es/Nav.js","./Navbar":"../node_modules/react-bootstrap/es/Navbar.js","./NavbarBrand":"../node_modules/react-bootstrap/es/NavbarBrand.js","./NavDropdown":"../node_modules/react-bootstrap/es/NavDropdown.js","./NavItem":"../node_modules/react-bootstrap/es/NavItem.js","./Overlay":"../node_modules/react-bootstrap/es/Overlay.js","./OverlayTrigger":"../node_modules/react-bootstrap/es/OverlayTrigger.js","./PageItem":"../node_modules/react-bootstrap/es/PageItem.js","./Pagination":"../node_modules/react-bootstrap/es/Pagination.js","./Popover":"../node_modules/react-bootstrap/es/Popover.js","./ProgressBar":"../node_modules/react-bootstrap/es/ProgressBar.js","./ResponsiveEmbed":"../node_modules/react-bootstrap/es/ResponsiveEmbed.js","./Row":"../node_modules/react-bootstrap/es/Row.js","./SafeAnchor":"../node_modules/react-bootstrap/es/SafeAnchor.js","./SplitButton":"../node_modules/react-bootstrap/es/SplitButton.js","./Tab":"../node_modules/react-bootstrap/es/Tab.js","./TabContainer":"../node_modules/react-bootstrap/es/TabContainer.js","./TabContent":"../node_modules/react-bootstrap/es/TabContent.js","./Table":"../node_modules/react-bootstrap/es/Table.js","./TabPane":"../node_modules/react-bootstrap/es/TabPane.js","./Tabs":"../node_modules/react-bootstrap/es/Tabs.js","./ThemeProvider":"../node_modules/react-bootstrap/es/ThemeProvider.js","./ToggleButton":"../node_modules/react-bootstrap/es/ToggleButton.js","./ToggleButtonGroup":"../node_modules/react-bootstrap/es/ToggleButtonGroup.js","./Tooltip":"../node_modules/react-bootstrap/es/Tooltip.js"}],"components/Home.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-  return bundleURL;
-}
+var _react = _interopRequireDefault(require("react"));
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
+var _reactBootstrap = require("react-bootstrap");
 
-  return '/';
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function updateLink(link) {
-  var newLink = link.cloneNode();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  newLink.onload = function () {
-    link.remove();
-  };
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-var cssTimeout = null;
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Home =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Home, _React$Component);
+
+  function Home() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
+    _classCallCheck(this, Home);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    cssTimeout = null;
-  }, 50);
-}
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Home)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      isHome: true
+    }, _temp));
+  }
 
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/bootstrap/dist/css/bootstrap.min.css":[function(require,module,exports) {
+  _createClass(Home, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "home",
+        style: {
+          textAlign: 'center',
+          marginTop: 50
+        }
+      }, _react.default.createElement(_Container.default, {
+        className: "homeContainer"
+      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "rows"
+      }, _react.default.createElement(_reactBootstrap.Col, null, "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."), _react.default.createElement(_reactBootstrap.Col, null, "Subscribe to our Newsletter")), _react.default.createElement(_reactBootstrap.Row, {
+        className: "rows"
+      }, _react.default.createElement(_reactBootstrap.Col, null, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here content."), _react.default.createElement(_reactBootstrap.Col, null, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here."), _react.default.createElement(_reactBootstrap.Col, null, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here."))));
+    }
+  }]);
+
+  return Home;
+}(_react.default.Component);
+
+var _default = Home;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js","react-bootstrap":"../node_modules/react-bootstrap/es/index.js"}],"styles/navbar.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"style.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Navbar.js":[function(require,module,exports) {
+"use strict";
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"App.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("../styles/navbar.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Navbar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Navbar, _React$Component);
+
+  function Navbar() {
+    _classCallCheck(this, Navbar);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Navbar).apply(this, arguments));
+  }
+
+  _createClass(Navbar, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("header", {
+        className: "header"
+      }, _react.default.createElement("h1", {
+        className: "logo"
+      }, _react.default.createElement("a", {
+        href: "#sdf"
+      }, "Flexbox")), _react.default.createElement("ul", {
+        className: "main-nav"
+      }, _react.default.createElement("li", null, _react.default.createElement("a", {
+        href: "#sdf"
+      }, "Home")), _react.default.createElement("li", null, _react.default.createElement("a", {
+        href: "#sdf"
+      }, "About")), _react.default.createElement("li", null, _react.default.createElement("a", {
+        href: "#sdf"
+      }, "Portfolio")), _react.default.createElement("li", null, _react.default.createElement("a", {
+        href: "#sdf"
+      }, "Contact"))));
+    }
+  }]);
+
+  return Navbar;
+}(_react.default.Component);
+
+var _default = Navbar;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../styles/navbar.scss":"styles/navbar.scss"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
-
-var _Alert = _interopRequireDefault(require("react-bootstrap/Alert"));
-
-var _reactBootstrap = require("react-bootstrap");
-
 require("bootstrap/dist/css/bootstrap.min.css");
 
-require("./style.scss");
+require("./styles/style.scss");
+
+var _Carousel = _interopRequireDefault(require("./components/Carousel"));
+
+var _Home = _interopRequireDefault(require("./components/Home"));
+
+var _Navbar = _interopRequireDefault(require("./components/Navbar"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43032,16 +42856,22 @@ var App =
 function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App(props) {
+  function App() {
+    var _getPrototypeOf2;
+
     var _this;
+
+    var _temp;
 
     _classCallCheck(this, App);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       name: 'Natu KulaVruttant'
-    };
-    return _this;
+    }, _temp));
   }
 
   _createClass(App, [{
@@ -43049,13 +42879,23 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "mainContainer"
-      }, _react.default.createElement("h1", null, "Welcome to the official site for The Natus!"), _react.default.createElement(_Button.default, {
-        variant: "flat",
-        size: "xxl"
-      }, "Flat Button new kjhsdfkjhsdf"), _react.default.createElement(_Alert.default, {
-        dismissible: true,
-        variant: "danger"
-      }, _react.default.createElement(_Alert.default.Heading, null, "Oh snap! You got an error!"), _react.default.createElement("p", null, "Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.")), "; ;", _react.default.createElement("button", null, "normal button something"), _react.default.createElement(_Container.default, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, null, "1 of 2"), _react.default.createElement(_reactBootstrap.Col, null, "2 of 2")), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, null, "1 of 3"), _react.default.createElement(_reactBootstrap.Col, null, "2 of 3"), _react.default.createElement(_reactBootstrap.Col, null, "3 of 3")), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, null, " 1 of 2 "), _react.default.createElement(_reactBootstrap.Col, null, " 2 of 2 "))), _react.default.createElement("div", null, _react.default.createElement("p", null, " first p1 "), _react.default.createElement("p", null, " first p2 ")));
+      }, _react.default.createElement(_Navbar.default, {
+        style: {
+          textAlign: 'center',
+          marginTop: 100,
+          height: 200
+        }
+      }), _react.default.createElement("div", {
+        className: "mainHeaderTitle",
+        style: {
+          textAlign: 'center'
+        }
+      }, _react.default.createElement("h1", null, "Welcome to the official site for The Natus!")), _react.default.createElement(_Carousel.default, {
+        style: {
+          textAlign: 'center',
+          marginTop: 100
+        }
+      }), _react.default.createElement(_Home.default, null));
     }
   }]);
 
@@ -43063,7 +42903,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js","react-bootstrap/Alert":"../node_modules/react-bootstrap/Alert.js","react-bootstrap":"../node_modules/react-bootstrap/es/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","./style.scss":"style.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","./styles/style.scss":"styles/style.scss","./components/Carousel":"components/Carousel.js","./components/Home":"components/Home.js","./components/Navbar":"components/Navbar.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -43090,7 +42930,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53072" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56865" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
