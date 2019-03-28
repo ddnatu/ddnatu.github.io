@@ -1,0 +1,77 @@
+.containerCustom {
+    max-width: 90%;
+}
+.rowCustom {
+    text-align: center;
+    height: 300px;
+}
+.rowFirst {
+    background-color: aqua;
+}
+.rowSecond {
+    background-color: yellow;
+}
+.rowThird {
+    background-color: chocolate;
+}
+.columns {
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+.colHistory {
+    background-image: url('./../../dist/assets/History.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colEvents {
+    background-image: url('./../../dist/assets/Events.jpeg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colPlaces {
+    background-image: url('./../../dist/assets/Places.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colGallery {
+    background-image: url('./../../dist/assets/Gallery.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colTrends {
+    background-image: url('./../../dist/assets/Trending.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colConnect {
+    background-image: url('./../../dist/assets/Connect.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colInformation {
+    background-image: url('./../../dist/assets/Information.jpeg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.colNews {
+    background-image: url('./../../dist/assets/News.jpeg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

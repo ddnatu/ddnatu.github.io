@@ -8,7 +8,7 @@
         "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\" ",
         "lint": "eslint \"src/**/*.{js,jsx}\"",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "HTTPS=true parcel src/index.html",
+        "start": "parcel src/index.html",
         "build": "parcel build src/index.html --out-dir production"
     },
     "keywords": [],
@@ -32,8 +32,13 @@
         "sass": "^1.17.2"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.16",
+        "@fortawesome/free-solid-svg-icons": "^5.8.0",
+        "@fortawesome/react-fontawesome": "^0.1.4",
         "@reach/router": "^1.2.1",
         "bootstrap": "^4.3.1",
+        "i": "^0.3.6",
+        "npm": "^6.9.0",
         "petfinder-client": "0.0.3",
         "react": "^16.7.0",
         "react-bootstrap": "^1.0.0-beta.5",

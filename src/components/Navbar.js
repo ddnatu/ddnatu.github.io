@@ -1,12 +1,16 @@
 import React from 'react'
 import '../styles/navbar.scss'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Navbar extends React.Component {
     render() {
         return (
             <header className="header">
                 <h1 className="logo">
-                    <a href="#sdf">Flexbox</a>
+                    <a href="#sdf">
+                        <FontAwesomeIcon icon={faHome} />
+                    </a>
                 </h1>
                 <ul className="main-nav">
                     <li>
