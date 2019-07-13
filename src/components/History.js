@@ -5,7 +5,7 @@ class History extends React.Component {
         history: true,
     }
     render() {
-        return <div> Comhgving soon </div>
+        return <div> Coming soon </div>
     }
 }
 

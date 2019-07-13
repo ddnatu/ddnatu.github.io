@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import fire from './../Config/Fire'
+import './../styles/login.scss'
 
 class Login extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
+            isLoading: false,
         }
     }
 
@@ -18,11 +20,22 @@ class Login extends Component {
     }
 
     login(e) {
+        this.setState({
+            isLoading: true,
+        })
         e.preventDefault()
         fire.auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(u => {})
+            .then(u => {
+                u
+                this.setState({
+                    isLoading: false,
+                })
+            })
             .catch(error => {
+                this.setState({
+                    isLoading: true,
+                })
                 console.log(error)
             })
     }
@@ -34,56 +47,92 @@ class Login extends Component {
                 this.state.email,
                 this.state.password
             )
-            .then(u => {
-                console.log(u)
-            })
+            .then(
+                this.setState({
+                    isLoading: false,
+                })
+            )
             .catch(error => {
+                this.setState({
+                    isLoading: true,
+                })
                 console.log(error)
             })
     }
+
     render() {
+        const { isLoading } = this.state
         return (
-            <div className="col-md-6">
-                <form>
-                    <div>
-                        <label htmlFor="exampleInputEmail1">
-                            Email address
-                        </label>
-                        <input
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            type="email"
-                            name="email"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter email"
-                        />
-                        <small id="emailHelp">
-                            We will never share your email with anyone else.
-                        </small>
+            <div>
+                {isLoading ? (
+                    <div className="loader">
+                        {/* <FontAwesomeIcon
+                            style={{ fontSize: '10em' }}
+                            icon={faSpinner}
+                        /> */}
+                        <div className="cssLoader" />
                     </div>
-                    <div>
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            type="password"
-                            name="password"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
-                        />
+                ) : (
+                    <div className="login-container">
+                        <div className="content-container">
+                            <form>
+                                <label htmlFor="exampleInputEmail1">
+                                    Email address
+                                </label>
+                                <input
+                                    value={this.state.email}
+                                    onChange={this.handleChange}
+                                    type="email"
+                                    name="email"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Enter email"
+                                />
+
+                                <label htmlFor="exampleInputPassword1">
+                                    Password
+                                </label>
+                                <input
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                    type="password"
+                                    name="password"
+                                    id="exampleInputPassword1"
+                                    placeholder="Password"
+                                />
+                                <div className="login-signup">
+                                    <button
+                                        type="submit"
+                                        className="login"
+                                        onClick={this.login}
+                                    >
+                                        LOGIN
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="login"
+                                        onClick={this.signup}
+                                        style={{ marginLeft: '25px' }}
+                                    >
+                                        SIGNUP
+                                    </button>
+                                    {/* <button className="media fb">
+                                    <i
+                                        className="fa fa-facebook"
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                                <button className="media g">
+                                    <i
+                                        className="fa fa-google"
+                                        aria-hidden="true"
+                                    />
+                                </button> */}
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <button type="submit" onClick={this.login}>
-                        Login
-                    </button>
-                    <button
-                        onClick={this.signup}
-                        style={{ marginLeft: '25px' }}
-                        className="btn btn-success"
-                    >
-                        Signup
-                    </button>
-                </form>
+                )}
             </div>
         )
     }

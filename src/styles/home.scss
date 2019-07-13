@@ -15,7 +15,7 @@
     background-color: chocolate;
 }
 .columns {
-    padding: 10px;
+    padding: 100px;
     border: 1px solid gray;
 }
 
@@ -25,6 +25,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colEvents {
     background-image: url('./../../dist/assets/Events.jpeg');
@@ -32,6 +33,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colPlaces {
     background-image: url('./../../dist/assets/Places.jpg');
@@ -39,6 +41,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colGallery {
     background-image: url('./../../dist/assets/Gallery.jpg');
@@ -46,6 +49,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colTrends {
     background-image: url('./../../dist/assets/Trending.png');
@@ -53,6 +57,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colConnect {
     background-image: url('./../../dist/assets/Connect.png');
@@ -60,6 +65,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colInformation {
     background-image: url('./../../dist/assets/Information.jpeg');
@@ -67,6 +73,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }
 .colNews {
     background-image: url('./../../dist/assets/News.jpeg');
@@ -74,4 +81,5 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: center;
 }

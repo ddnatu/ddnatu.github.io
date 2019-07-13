@@ -26,7 +26,6 @@ const carouselSlidesData = [
         source: '../assets/Phalgun.jpg',
     },
 ]
-//const carouselContainer = document.querySelector('.carousel-container')
 
 class CarouselLeftArrow extends React.Component {
     render() {

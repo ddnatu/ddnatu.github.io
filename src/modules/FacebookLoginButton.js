@@ -100,13 +100,8 @@ export default class FacebookLogin extends Component {
         let { children } = this.props
         return (
             <button
-                style={{
-                    position: 'relative',
-                    left: '18%',
-                    width: 'auto',
-                    fontSize: '0.8em',
-                    verticalAlign: 'top',
-                }}
+                className="facebookButtonStyle"
+                style={{}}
                 target="_top"
                 onClick={this.facebookLogin}
                 data-use-continue-as="true"

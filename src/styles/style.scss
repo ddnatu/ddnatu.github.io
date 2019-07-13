@@ -4,7 +4,8 @@
 }
 
 .mainContainer {
-    background-color: powderblue;
+    //background-color: powderblue;
+    background-color: #f4f4f4;
 }
 
 // SASS variable for media query breakpoint
@@ -17,27 +18,17 @@ ul {
     list-style-type: none;
 }
 
-// Fix for jumping arrows
-.carousel-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 210px;
-}
-
 .carousel {
     position: relative;
-}
-
-// Carousel slides
-.carousel__slide {
     margin-right: auto;
     margin-left: auto;
+    //max-width: 400px;
+}
+// Carousel slides
+.carousel__slide {
     display: none;
-    max-width: 900px;
     list-style-type: none;
-    text-align: center;
-
+    margin: 0 auto;
     @media (max-width: 991px) {
         padding-right: 60px;
         padding-left: 60px;
@@ -45,6 +36,10 @@ ul {
 
     &--active {
         display: block;
+    }
+    img {
+        max-width: 650px;
+        max-height: 400px;
     }
 }
 
@@ -80,10 +75,11 @@ ul {
     top: 50%;
     display: block;
     color: #111;
+    background: transparent;
     cursor: pointer;
     opacity: 0.75;
     transform: translateY(-50%);
-    transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+    //transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
 
     &:focus {
         outline: 0;
@@ -94,11 +90,13 @@ ul {
     }
 
     &--left {
-        left: 32px;
+        //left: 32px;
+        left: 20%;
     }
 
     &--right {
-        right: 32px;
+        //right: 32px;
+        right: 20%;
     }
 }
 
@@ -134,5 +132,51 @@ ul {
         &:hover {
             opacity: 0.75;
         }
+    }
+}
+
+.facebookButtonStyle {
+    position: absolute;
+    padding: 4px;
+    right: 7%;
+    width: auto;
+    font-size: 0.7em;
+    color: #ffffff;
+    top: 15%;
+    background-color: #4359fa;
+}
+.logoutButtonStyle {
+    position: absolute;
+    padding: 4px;
+    right: 2%;
+    width: auto;
+    font-size: 0.7em;
+    color: #ffffff;
+    top: 15%;
+    background-color: #4359fa;
+}
+.loader {
+    text-align: center;
+    position: relative;
+    margin-top: 20%;
+}
+.cssLoader {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 20%;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 20px solid #3498db; /* Blue */
+    border-radius: 60%;
+    width: 150px;
+    height: 150px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

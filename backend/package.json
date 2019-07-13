@@ -1,0 +1,15 @@
+{
+    "name": "node-frontend-masters",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "dependencies": {
+        "nodemon": "^1.19.1",
+        "through2": "^3.0.1"
+    },
+    "scripts": {
+        "start": "nodemon server.js",
+        "streams": "cd streams && node streams.js "
+    },
+    "author": ""
+}

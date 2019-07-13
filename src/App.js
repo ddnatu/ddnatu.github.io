@@ -2,18 +2,25 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/style.scss'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { Router } from '@reach/router'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faIgloo } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faIgloo)
+//import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 import fire from './Config/Fire'
 import Login from './components/Login'
-import Carousel from './components/Carousel'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
-import FacebookLoginButton from './modules/FacebookLoginButton'
+//import FacebookLoginButton from './modules/FacebookLoginButton'
+
+import About from './components/About'
+import Chatroom from './components/Chatroom'
+import Contact from './components/Contact'
+//import Information from './components/Information'
+import Gallery from './components/Gallery'
+import News from './components/News'
+import Connect from './components/Connect'
+import Places from './components/Places'
+import Events from './components/Events'
 
 class App extends React.Component {
     state = {
@@ -22,6 +29,7 @@ class App extends React.Component {
         accessToken: '',
         connectionStatus: false,
         user: null,
+        isLoading: true,
     }
 
     onFacebookLogin = (loginStatus, resultObject) => {
@@ -32,35 +40,43 @@ class App extends React.Component {
                 accessToken: resultObject.response.authResponse.accessToken,
                 connectionStatus:
                     resultObject.response.status === 'connected' ? true : false,
+                isLoading: false,
             })
         } else {
+            this.setState({
+                isLoading: false,
+            })
             //alert('Facebook login error')
         }
     }
 
     authListener() {
         fire.auth().onAuthStateChanged(user => {
-            console.log(user)
+            console.log('user', user)
             if (user) {
-                this.setState({ user })
+                this.setState({ user, isLoading: false })
                 //localStorage.setItem('user', user.uid)
             } else {
-                this.setState({ user: null })
+                this.setState({ user: null, isLoading: false })
                 //localStorage.removeItem('user')
             }
         })
     }
+
+    logout() {
+        fire.auth().signOut()
+
+        this.setState({
+            user: null,
+        })
+    }
+
     componentDidMount() {
         this.authListener()
     }
+
     render() {
-        const {
-            accessToken,
-            username,
-            userId,
-            connectionStatus,
-            user,
-        } = this.state
+        const { user, isLoading } = this.state
         return (
             <div>
                 {user ? (
@@ -72,29 +88,43 @@ class App extends React.Component {
                                 height: 200,
                             }}
                         />
-                        <div
-                            className="mainHeaderTitle"
-                            style={{ textAlign: 'center' }}
+                        {/* <button
+                            className="logoutButtonStyle"
+                            onClick={this.logout}
                         >
-                            <h1 style={{ display: 'inline-block' }}>
-                                Welcome to the official site of The Natus!
-                            </h1>
-                            <FacebookLoginButton onLogin={this.onFacebookLogin}>
-                                Login with Facebook
-                            </FacebookLoginButton>
-                        </div>
-                        <Carousel
-                            style={{ textAlign: 'center', marginTop: 100 }}
-                            username={username}
-                            userid={userId}
-                            accessToken={accessToken}
-                            connectionStatus={connectionStatus}
-                        />
-                        <Home />
+                            Logout
+                        </button>
+                        <FacebookLoginButton onLogin={this.onFacebookLogin}>
+                            Login with Facebook
+                        </FacebookLoginButton> */}
+                        <Router>
+                            <Home
+                                path="/"
+                                user={user}
+                                username
+                                userid
+                                accessToken
+                                connectionStatus
+                            />
+                            <About path="/about" />
+                            <Chatroom
+                                path="/chatroom"
+                                user={user}
+                            />
+                            <Gallery path="/gallery" />
+                            <News path="/news" />
+                            <Events path="/events" />
+                            <Connect path="/connect" />
+                            <Places path="/places" />
+                            <Contact path="/contact" />
+
+                        </Router>
                     </div>
                 ) : (
-                    <Login />
-                )}
+                        <div>
+                            {isLoading ? <div className="cssLoader" /> : <Login />}
+                        </div>
+                    )}
             </div>
         )
     }
