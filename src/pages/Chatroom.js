@@ -14,6 +14,10 @@ const chatroomBackdropImage = {
     backgroundSize: 'cover'
 };
 
+const url = 'ws://localhost:1994'
+const connection = new WebSocket(url);
+
+
 class Chatroom extends React.Component {
 
     constructor(props) {
@@ -30,6 +34,24 @@ class Chatroom extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderOlderMessages = this.renderOlderMessages.bind(this);
         this.addNewMessage = this.addNewMessage.bind(this);
+
+        connection.onopen = () => {
+            //connection.send('Message From Client');
+        }
+
+        connection.onerror = (error) => {
+            console.log('Web Socket on error Client Side', error);
+        }
+
+        connection.onmessage = (e) => {
+            console.log('Message from Server ', e.data);
+            let x = this.state.messageList;
+            x ? x.push(JSON.parse(e.data)) : [JSON.parse(e.data)];
+            this.setState({
+                messageList: x,
+                value: ''
+            });
+        }
     }
 
     scrollToMyRef = () => {
@@ -68,8 +90,9 @@ class Chatroom extends React.Component {
             reqBody,
             { headers: headers }
         );
-        res.then((data) => {
-            console.log('success data', data);
+        res.then(() => {
+            //console.log('success data', data);
+            connection.send(JSON.stringify(chatObj));
             let x = this.state.messageList;
             x ? x.push(chatObj) : [chatObj];
             this.setState({
@@ -77,7 +100,6 @@ class Chatroom extends React.Component {
                 value: ''
             });
             this.scrollToMyRef();
-
         });
         res.catch((err) => {
             console.log('Error in newMessage post request', err);
@@ -102,6 +124,7 @@ class Chatroom extends React.Component {
     }
 
     render() {
+        console.log('rendering again');
         const { user, value, messageList } = this.state;
         return (
             <div className="chatroomContainer">

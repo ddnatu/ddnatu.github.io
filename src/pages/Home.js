@@ -63,7 +63,7 @@ class Home extends React.Component {
                     connectionStatus={connectionStatus}
                 />
                 <section>
-                    <button onClick={this.getData()} >Test Node API </button>
+                    {/* <button onClick={this.getData()} >Test Node API </button> */}
                 </section>
                 <Events />
                 <Birthday user={user} />

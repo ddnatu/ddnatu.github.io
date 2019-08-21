@@ -1,19 +1,32 @@
 const http = require('http');
 const fs = require('fs');
-const Buffer = require('buffer/').Buffer;
-
-// const sampleTwitter = './tweets.json';
+//const Buffer = require('buffer/').Buffer;
 const userMessages = './userMessages.json';
+const WebSocket = require('ws')
 
+const wss = new WebSocket.Server({ port: 1994 })
+
+wss.on('connection', ws => {
+    ws.on('message', message => {
+        console.log('server', typeof message, JSON.parse(message));
+        wss.broadcast(message);
+    });
+});
+
+wss.broadcast = function broadcast(msg) {
+    wss.clients.forEach(function each(client) {
+        client.send(msg);
+    });
+};
 function doOnRequest(request, response) {
 
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET');
     response.setHeader('Access-Control-Allow-Headers', '*');
     response.setHeader('Access-Control-Max-Age', 2592000);
-    console.log('requyest methon', request.method, request.url);
+
     if (request.method === 'GET' && request.url === '/') {
-        console.log('test get /');
+        //console.log('test get /');
 
     } else if (request.method === 'GET' && request.url === '/getUserMessages') {
         let res = fs.readFileSync(userMessages);
@@ -22,7 +35,7 @@ function doOnRequest(request, response) {
     } else if (request.method === 'OPTIONS') {
         let body = 'test';
         request.on('data', () => {
-            //console.log('data');
+            console.log('data');
         })
         request.on('end', () => {
             response.end(body);
@@ -36,11 +49,17 @@ function doOnRequest(request, response) {
         request.on('end', () => {
             let oldData = fs.readFileSync(userMessages);
             let oldMessages = JSON.parse(oldData);
-            var x = Buffer.concat(body).toString();
-            oldMessages.messages.push(JSON.parse(x));
+            let newMsg = JSON.parse(body);
+            oldMessages.messages.push(newMsg);
             let newJson = JSON.stringify(oldMessages);
-            fs.writeFileSync(userMessages, newJson);
 
+            fs.writeFile(userMessages, newJson, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+                //ws.send(newMsg);
+            });
+
+            // fs.writeFileSync(userMessages, newJson);
             response.end();
         });
 
@@ -54,7 +73,4 @@ function doOnRequest(request, response) {
 }
 
 const server = http.createServer(doOnRequest)
-
-
-
 server.listen(3001);
