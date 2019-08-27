@@ -14,11 +14,11 @@ const chatroomBackdropImage = {
     backgroundSize: 'cover'
 };
 
-const url = 'ws://localhost:1994'
-const connection = new WebSocket(url);
 
+const URL = 'ws://localhost:1994'
 
 class Chatroom extends React.Component {
+    ws = new WebSocket(URL)
 
     constructor(props) {
         super(props);
@@ -28,30 +28,14 @@ class Chatroom extends React.Component {
             user: this.props.user,
             chatObj: {},
             value: '',
-            messageList: []
+            messageList: [],
         }
+
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderOlderMessages = this.renderOlderMessages.bind(this);
         this.addNewMessage = this.addNewMessage.bind(this);
-
-        connection.onopen = () => {
-            //connection.send('Message From Client');
-        }
-
-        connection.onerror = (error) => {
-            console.log('Web Socket on error Client Side', error);
-        }
-
-        connection.onmessage = (e) => {
-            console.log('Message from Server ', e.data);
-            let x = this.state.messageList;
-            x ? x.push(JSON.parse(e.data)) : [JSON.parse(e.data)];
-            this.setState({
-                messageList: x,
-                value: ''
-            });
-        }
     }
 
     scrollToMyRef = () => {
@@ -59,7 +43,25 @@ class Chatroom extends React.Component {
     }
 
     componentDidMount() {
-        //this.openSocket();
+        this.ws.onopen = () => {
+            // on connecting, do nothing but log it to the console
+            console.log('connected')
+        }
+
+        this.ws.onmessage = evt => {
+            // on receiving a message, add it to the list of messages
+            let x = this.state.messageList;
+            x ? x.push(JSON.parse(evt.data)) : [JSON.parse(evt.data)];
+            this.setState({
+                messageList: x,
+                value: ''
+            });
+        }
+
+        this.ws.onclose = () => {
+            console.log('disconnected')
+        }
+
         this.renderOlderMessages();
     }
 
@@ -68,7 +70,6 @@ class Chatroom extends React.Component {
             'http://localhost:3001/getUserMessages'
         );
         res.then((values) => {
-            console.log('success data render older messages', values);
             this.setState({
                 messageList: values.data.messages
             });
@@ -78,6 +79,8 @@ class Chatroom extends React.Component {
             console.log('Error in newMessage post request', err);
         });
     }
+
+    isOpen(ws) { return ws.readyState === ws.OPEN }
 
     addNewMessage(chatObj) {
         let reqBody = chatObj;
@@ -91,8 +94,38 @@ class Chatroom extends React.Component {
             { headers: headers }
         );
         res.then(() => {
-            //console.log('success data', data);
-            connection.send(JSON.stringify(chatObj));
+
+            //this.ws.send(JSON.stringify(chatObj))
+            let jMessage = JSON.stringify(chatObj);
+            this.send = (message, callback) => {
+                this.waitForConnection(() => {
+                    this.ws.send(message);
+                    if (typeof callback !== 'undefined') {
+                        callback();
+                    }
+                }, 1000);
+            };
+            this.waitForConnection = function (callback, interval) {
+                if (this.ws.readyState === 1) {
+                    callback();
+                } else {
+                    var that = this;
+                    // optional: implement backoff for interval here
+                    this.ws = new WebSocket(URL);
+                    this.ws.onopen = () => {
+                        console.log('connected again');
+                    }
+                    setTimeout(function () {
+                        that.waitForConnection(callback, interval);
+                    }, interval);
+                }
+            };
+            this.send(jMessage, () => {
+                this.ws.onmessage = evt => {
+                    console.log('evt', evt);
+                }
+            });
+
             let x = this.state.messageList;
             x ? x.push(chatObj) : [chatObj];
             this.setState({
@@ -118,13 +151,11 @@ class Chatroom extends React.Component {
             message_date: moment.now().valueOf(),
             message_timezone: "Asia/Kolkata"
         }
-
         this.addNewMessage(chatObj);
         event.preventDefault();
     }
 
     render() {
-        console.log('rendering again');
         const { user, value, messageList } = this.state;
         return (
             <div className="chatroomContainer">
@@ -143,13 +174,13 @@ class Chatroom extends React.Component {
                         })}
                     </div>
                     <div ref={this.scrollChatRef} className="formChatContainer">
-                        <form className="formChatroom" onSubmit={this.handleSubmit}>
+                        <form className="formChatroom" onSubmit={(e) => this.handleSubmit(e)}>
                             <div className="chatInputContainer">
                                 <div className="chatAccountLabel">
                                     {user.email}
                                 </div>
                                 <div className="chatAccountInputTextContainer">
-                                    <input className="chatAccountInputText" type="text" value={value} onChange={this.handleChange} />
+                                    <input className="chatAccountInputText" type="text" value={value} onChange={(e) => this.handleChange(e)} />
                                 </div>
                             </div>
                             <div className="submitChatButtonContainer"><input className="submitChatButton" type="submit" value="Submit" /></div>

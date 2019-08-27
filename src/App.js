@@ -50,7 +50,7 @@ class App extends React.Component {
 
     authListener() {
         fire.auth().onAuthStateChanged(user => {
-            console.log('user', user)
+            //console.log('user', user)
             if (user) {
                 this.setState({ user, isLoading: false })
                 //localStorage.setItem('user', user.uid)

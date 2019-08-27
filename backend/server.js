@@ -6,18 +6,23 @@ const WebSocket = require('ws')
 
 const wss = new WebSocket.Server({ port: 1994 })
 
-wss.on('connection', ws => {
-    ws.on('message', message => {
-        console.log('server', typeof message, JSON.parse(message));
-        wss.broadcast(message);
+wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(data) {
+        wss.clients.forEach(function each(client) {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(data);
+                console.log('readystate', client.readyState);
+            }
+        });
     });
+    ws.on('close', () => {
+        console.log('server conn closed');
+        setTimeout(() => {
+            console.log('closed by server console. log');
+        }, 2000);
+    })
 });
 
-wss.broadcast = function broadcast(msg) {
-    wss.clients.forEach(function each(client) {
-        client.send(msg);
-    });
-};
 function doOnRequest(request, response) {
 
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -35,7 +40,7 @@ function doOnRequest(request, response) {
     } else if (request.method === 'OPTIONS') {
         let body = 'test';
         request.on('data', () => {
-            console.log('data');
+            //console.log('data');
         })
         request.on('end', () => {
             response.end(body);
@@ -55,11 +60,8 @@ function doOnRequest(request, response) {
 
             fs.writeFile(userMessages, newJson, (err) => {
                 if (err) throw err;
-                console.log('The file has been saved!');
-                //ws.send(newMsg);
             });
 
-            // fs.writeFileSync(userMessages, newJson);
             response.end();
         });
 
