@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Natu Kulavruttant</title>
 
-        <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: 'AIzaSyAIyNREgabQAwu9I364QkwJvXTT3EnO0aY',
-                authDomain: 'natukulvruttant.firebaseapp.com',
-                databaseURL: 'https://natukulvruttant.firebaseio.com',
-                projectId: 'natukulvruttant',
-                storageBucket: 'natukulvruttant.appspot.com',
-                messagingSenderId: '112090006817',
-            }
-            firebase.initializeApp(config)
-        </script>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <title>Natu Kulavruttant</title>
 
-    <body>
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId: '326546017996809',
-                    autoLogAppEvents: true,
-                    xfbml: true,
-                    version: 'v2.11',
-                })
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: 'AIzaSyAIyNREgabQAwu9I364QkwJvXTT3EnO0aY',
+            authDomain: 'natukulvruttant.firebaseapp.com',
+            databaseURL: 'https://natukulvruttant.firebaseio.com',
+            projectId: 'natukulvruttant',
+            storageBucket: 'natukulvruttant.appspot.com',
+            messagingSenderId: '112090006817',
+        }
+        firebase.initializeApp(config)
+    </script>
+</head>
 
-                // Broadcast an event when FB object is ready
-                var fbInitEvent = new Event('FBObjectReady')
-                document.dispatchEvent(fbInitEvent)
-            }
-            ;(function(d, s, id) {
+<body>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '326546017996809',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.11',
+            })
+
+            // Broadcast an event when FB object is ready
+            var fbInitEvent = new Event('FBObjectReady')
+            document.dispatchEvent(fbInitEvent)
+        }
+            ; (function (d, s, id) {
                 var js,
                     fjs = d.getElementsByTagName(s)[0]
                 if (d.getElementById(id)) {
@@ -44,10 +45,11 @@
                 js.src = 'https://connect.facebook.net/en_US/sdk.js'
                 fjs.parentNode.insertBefore(js, fjs)
             })(document, 'script', 'facebook-jssdk')
-        </script>
+    </script>
 
-        <div id="root">Not rendered.</div>
+    <div id="root">Not rendered.</div>
 
-        <script src="./App.js"></script>
-    </body>
+    <script src="./App.js"></script>
+</body>
+
 </html>

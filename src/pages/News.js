@@ -6,9 +6,6 @@ import './../styles/news.scss';
 const apiKey = '4fa0750590044d02b2fd3a2a3c407f39';
 const countryCodeIndia = 'in';
 const newsClass = ['one', 'two', 'three', 'four', 'five', 'six'];
-const divStyle = (imgSrc) => ({
-    backgroundImage: `url(${imgSrc})`
-})
 
 function NewsTemplates(props) {
     //const newsClass = props.newsClass;
@@ -19,7 +16,6 @@ function NewsTemplates(props) {
             <span>{values.title}</span>
             <span><img className="newsThumbnail" key={values.urlToImage} src={values.urlToImage} alt="" /></span>
             <span>{values.description}</span>
-            <div>{values.content}</div>
         </div>
     );
     return (
@@ -66,7 +62,6 @@ class News extends React.Component {
         );
         res.then((response) => {
             try {
-                console.log('response from the news api', response);
                 let data = response.data;
                 let newsFeed = normalizeNewsFeed(data.articles);
                 this.setState({

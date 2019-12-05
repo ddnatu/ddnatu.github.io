@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
 import Container from 'react-bootstrap/Container'
 import { Row, Col } from 'react-bootstrap'
 import './../styles/home.scss'
@@ -8,6 +9,10 @@ import { Link } from '@reach/router'
 import Birthday from './../pages/Birthday'
 import Carousel from './../pages/Carousel'
 import Events from './../pages/Events'
+import HooksExample from './../pages/HooksExample'
+
+const firebaseFunctionsURI = 'https://us-central1-natukulvruttant.cloudfunctions.net/app/';
+
 class Home extends React.Component {
     state = {
         isHome: true,
@@ -16,11 +21,11 @@ class Home extends React.Component {
         userid: this.props.userid,
         accessToken: this.props.accessToken,
         connectionStatus: this.props.connectionStatus,
+        time: ''
     }
 
     constructor(props) {
         super(props);
-        //this.getData = this.getData.bind(this);
     }
 
     getData() {
@@ -33,6 +38,13 @@ class Home extends React.Component {
         res.catch((error) => {
             console.log('error', error);
         });
+    }
+
+    getTimeStamp(cachedTime) {
+        let res = axios.get(cachedTime ? `${firebaseFunctionsURI}timestamp` : `${firebaseFunctionsURI}timestamp-cached`);;
+        res.then((t) => {
+            this.setState({ time: moment(t).format('MMMM Do YYYY, h:mm:ss a') });
+        })
     }
 
 
@@ -73,6 +85,14 @@ class Home extends React.Component {
                 >
                     <Container className="containerCustom">
                         {/* Stack the columns on mobile by making one full-width and the other half-width */}
+                        <Row>
+                            {/* <Col xs={6} md={6}> <button onClick={this.getTimeStamp()}> Show Current Time</button> </Col> */}
+                            <Col xs={6} md={6}> {this.state.time} </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={6} md={6} > Counter Example </Col>
+                            <Col xs={6} md={6}> <HooksExample /> </Col>
+                        </Row>
                         <Row className="rowFirst rowCustom">
                             <Col className="columns colHistory" xs={12} md={8}>
                                 <Link to="/history">History</Link>
@@ -102,7 +122,8 @@ class Home extends React.Component {
                         {/* Columns are always 50% wide, on mobile and desktop */}
                         <Row className="rowThird rowCustom">
                             <Col className="columns colGallery" xs={6}>
-                                <Link to="/gallery">Gallery</Link>
+                                {/* <Link to="/gallery">Gallery</Link> */}
+                                <Link to="/home-modified">Home Modified</Link>
                             </Col>
                             <Col className="columns colNews" xs={6}>
                                 <Link to="/news">News</Link>

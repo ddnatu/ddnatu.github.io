@@ -9,7 +9,7 @@
         "lint": "eslint \"src/**/*.{js,jsx}\"",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "parcel src/index.html",
-        "build": "parcel build src/index.html --out-dir production"
+        "build": "parcel build src/index.html --no-source-maps --out-dir dist"
     },
     "keywords": [],
     "author": "",
@@ -38,11 +38,12 @@
         "@reach/router": "^1.2.1",
         "axios": "^0.18.1",
         "bootstrap": "^4.3.1",
+        "formik": "^2.0.6",
         "i": "^0.3.6",
         "moment": "^2.24.0",
-        "npm": "^6.13.0",
+        "npm": "^6.13.2",
         "petfinder-client": "0.0.3",
-        "react": "^16.7.0",
+        "react": "^16.8.0",
         "react-bootstrap": "^1.0.0-beta.5",
         "react-dom": "^16.7.0",
         "ws": "^7.1.2"
