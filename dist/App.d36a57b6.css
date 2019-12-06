@@ -672,25 +672,29 @@ a {
 @media screen and (min-width: 769px) {
   .home-container .home-story section {
     min-height: 600px;
-    height: 100vh;
+    height: 80vh;
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     border: none; }
+  .home-container .home-story .content {
+    padding: 10px;
+    padding-bottom: 6%;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    margin: 0 auto; }
+    .home-container .home-story .content h1 {
+      text-align: center; }
+  .home-container .home-story #carousel {
+    margin-top: 50px; }
   .home-container .home-story #intro {
     min-height: 450px;
     margin-bottom: 20vh;
     padding-top: 65px; }
   .home-container .home-story #newsletter {
     min-height: auto;
-    height: auto; }
-  .home-container .home-story .content {
-    padding-left: 408px;
-    padding-right: 10px;
-    padding-bottom: 6%;
-    -ms-flex-item-align: end;
-    align-self: flex-end; } }
+    height: auto; } }
 
 .featured-quote {
   background-color: #00131a; }

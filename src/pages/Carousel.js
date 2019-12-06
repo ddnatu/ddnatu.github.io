@@ -2,7 +2,7 @@ import React from 'react'
 // get our fontawesome imports
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import request from 'request'
+
 // Data for carousel
 const carouselSlidesData = [
     {
@@ -110,8 +110,6 @@ class Carousel extends React.Component {
         this.goToSlide = this.goToSlide.bind(this)
         this.goToPrevSlide = this.goToPrevSlide.bind(this)
         this.goToNextSlide = this.goToNextSlide.bind(this)
-        this.request = this.request.bind(this)
-        this.getDetails = this.getDetails.bind(this)
 
         this.state = {
             activeIndex: 0,
@@ -168,48 +166,6 @@ class Carousel extends React.Component {
         })
     }
 
-    request(method, opts) {
-        console.log('coming here', this.props.userid)
-        //let newOpts = Object.assign(opts)
-        return new Promise((resolve, reject) => {
-            //url: 'graph.facebook.com' + '/v3.2/' + newOpts.id + '/ HTTP/1.1'
-            // url: 'graph.facebook.com' +
-            //     '/v3.2/' +
-            //     this.state.userid +
-            //     '/ HTTP/1.1'
-            // success: data => {
-            //     resolve(data)
-            // }
-            // error: err => {
-            //     reject(err)
-            // }
-            request(
-                'https://graph.facebook.com' +
-                    '/v3.2/me/photos?access_token=' +
-                    this.props.accessToken,
-                function(error, response, body) {
-                    // in addition to parsing the value, deal with possible errors
-                    if (error) return reject(error)
-                    try {
-                        // JSON.parse() can throw an exception if not valid JSON
-                        resolve(JSON.parse(body))
-                    } catch (e) {
-                        reject(e)
-                    }
-                }
-            )
-        })
-    }
-
-    getDetails(e) {
-        console.log(e)
-        var r = this.request('GET', e)
-        console.log(r)
-        r.then(data => {
-            console.log('data', data)
-        })
-    }
-
     render() {
         return (
             <div
@@ -225,7 +181,6 @@ class Carousel extends React.Component {
                             index={index}
                             activeIndex={this.state.activeIndex}
                             slide={slide}
-                            action={this.getDetails}
                         />
                     ))}
                 </ul>

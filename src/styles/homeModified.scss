@@ -56,12 +56,28 @@
     .home-container .home-story {
         section {
             min-height: 600px;
-            height: 100vh;
+            height: 80vh;
             position: relative;
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             border: none;
+        }
+
+        .content {
+            padding: 10px;
+            padding-bottom: 6%;
+            -ms-flex-item-align: end;
+            align-self: flex-end;
+            margin: 0 auto;
+
+            h1 {
+                text-align: center;
+            }
+        }
+
+        #carousel {
+            margin-top: 50px;
         }
 
         #intro {
@@ -73,14 +89,6 @@
         #newsletter {
             min-height: auto;
             height: auto;
-        }
-
-        .content {
-            padding-left: 408px;
-            padding-right: 10px;
-            padding-bottom: 6%;
-            -ms-flex-item-align: end;
-            align-self: flex-end;
         }
     }
 }

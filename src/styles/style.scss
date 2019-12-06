@@ -1,8 +1,8 @@
-
 body {
     padding: 0;
-    margin:0
+    margin: 0;
 }
+
 .mainHeaderTitle {
     margin-top: 5%;
     color: red;
@@ -27,20 +27,25 @@ ul {
     position: relative;
     margin-right: auto;
     margin-left: auto;
+
     //max-width: 400px;
 }
+
 // Carousel slides
 .carousel__slide {
     display: none;
     list-style-type: none;
     margin: 0 auto;
+
     @media (max-width: 991px) {
         padding-right: 60px;
         padding-left: 60px;
     }
+
     &--active {
         display: block;
     }
+
     img {
         max-width: 650px;
         max-height: 400px;
@@ -83,6 +88,7 @@ ul {
     cursor: pointer;
     opacity: 0.75;
     transform: translateY(-50%);
+
     //transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
 
     &:focus {
@@ -149,6 +155,7 @@ ul {
     top: 15%;
     background-color: #4359fa;
 }
+
 .logoutButtonStyle {
     position: absolute;
     padding: 4px;
@@ -159,11 +166,13 @@ ul {
     top: 15%;
     background-color: #4359fa;
 }
+
 .loader {
     text-align: center;
     position: relative;
     margin-top: 20%;
 }
+
 .cssLoader {
     position: relative;
     margin: 0 auto;
@@ -180,6 +189,7 @@ ul {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }

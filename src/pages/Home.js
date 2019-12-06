@@ -28,18 +28,6 @@ class Home extends React.Component {
         super(props);
     }
 
-    getData() {
-        let res = axios.get(
-            'http://localhost:3001/tweetsSample1'
-        );
-        res.then((data) => {
-            console.log('response from the node server', data);
-        });
-        res.catch((error) => {
-            console.log('error', error);
-        });
-    }
-
     getTimeStamp(cachedTime) {
         let res = axios.get(cachedTime ? `${firebaseFunctionsURI}timestamp` : `${firebaseFunctionsURI}timestamp-cached`);;
         res.then((t) => {
@@ -74,9 +62,6 @@ class Home extends React.Component {
                     accessToken={accessToken}
                     connectionStatus={connectionStatus}
                 />
-                <section>
-                    {/* <button onClick={this.getData()} >Test Node API </button> */}
-                </section>
                 <Events />
                 <Birthday user={user} />
                 <div
