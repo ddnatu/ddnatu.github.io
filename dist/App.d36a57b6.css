@@ -667,7 +667,11 @@ a {
       padding-right: 10px;
       padding-bottom: 6%;
       -ms-flex-item-align: end;
-      align-self: flex-end; } }
+      align-self: flex-end; }
+    .home-container .home-story .error {
+      color: #db2269;
+      font-size: 0.5em;
+      display: relative; } }
 
 @media screen and (min-width: 769px) {
   .home-container .home-story section {
@@ -687,14 +691,16 @@ a {
     .home-container .home-story .content h1 {
       text-align: center; }
   .home-container .home-story #carousel {
-    margin-top: 50px; }
+    margin-top: 50px;
+    max-height: 400px; }
   .home-container .home-story #intro {
-    min-height: 450px;
+    min-height: 600px;
     margin-bottom: 20vh;
     padding-top: 65px; }
   .home-container .home-story #newsletter {
-    min-height: auto;
-    height: auto; } }
+    min-height: 600px;
+    display: block;
+    text-align: center; } }
 
 .featured-quote {
   background-color: #00131a; }
