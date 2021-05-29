@@ -6,7 +6,7 @@
     "dependencies": {
         "nodemon": "^1.19.1",
         "through2": "^3.0.1",
-        "ws": "^7.1.2"
+        "ws": "^7.4.6"
     },
     "scripts": {
         "start": "nodemon server.js",
